@@ -6,6 +6,7 @@ import { Row, Col } from "react-bootstrap";
 
 export default function VideoList() {
   const { category } = useParams();
+  const watchLater = JSON.parse(localStorage.getItem("watchLater"))
 
   const [data, setData] = useState([]);
 
@@ -28,7 +29,7 @@ export default function VideoList() {
         {data.map((video, index) => {
           return (
             <Col key={index}>
-              <VideoCard video={video} category={video.category} />
+              <VideoCard video={video} category={video.category} watchLater={watchLater} />
             </Col>
           );
         })}

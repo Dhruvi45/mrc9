@@ -7,15 +7,13 @@ import VideoPage from "../pages/video/VideoPage";
 export default function MyRoutes() {
   return (
     <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/videosList" element={<VideoList />} />
-          <Route path="/videosList/:category" element={<VideoList />} />
-          <Route path="/videosList/:category/:id" element={<VideoPage />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/home" element={<Layout><Home /></Layout>} />
+        <Route path="/videosList" element={<Layout><VideoList /></Layout>} />
+        <Route path="/videosList/:category" element={<Layout><VideoList /></Layout>} />
+        <Route path="/videosList/:category/:id" element={<Layout><VideoPage /></Layout>} />
+      </Routes>
     </>
   );
 }
