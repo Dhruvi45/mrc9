@@ -14,7 +14,7 @@ export default function RightSideBar() {
             Home
           </MenuItem>
           <MenuItem
-            onClick={() => nevigate("/videosList")}
+            onClick={() => nevigate("/explore")}
             icon={<MdOutlineExplore />}
           >
             Explore
