@@ -25,7 +25,7 @@ export default function RightSideBar() {
           >
             Playlists
           </MenuItem>
-          <MenuItem onClick={() => nevigate("/home")} icon={<MdWatchLater />}>
+          <MenuItem onClick={() => nevigate("/watchLater")} icon={<MdWatchLater />}>
             Watch Later
           </MenuItem>
         </Menu>
