@@ -20,7 +20,7 @@ export default function RightSideBar() {
             Explore
           </MenuItem>
           <MenuItem
-            onClick={() => nevigate("/videosList")}
+            onClick={() => nevigate("/playList")}
             icon={<MdPlaylistAdd />}
           >
             Playlists

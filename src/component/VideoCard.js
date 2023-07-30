@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function VideoCard(props) {
   const { video, category, watchLater } = props;
   const navigate = useNavigate();
-
+  
   const [watch, setWatch] = useState(watchLater);
 
   const selectVideo = (video) => {
@@ -46,14 +46,14 @@ export default function VideoCard(props) {
           <div className="button-container">
             <button
               onClick={() =>
-                 watch.includes(video._id)
+                 watch?.includes(video._id)
                   ? removeWatchLater()
                   : addWatchLater()
               }
             >
               <MdWatchLater
                 color={
-                  watch.includes(video._id)
+                  watch?.includes(video._id)
                     ? "#33adff"
                     : "#33adff49"
                 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import { videos } from "../../dummyData/videosData";
 import { useParams } from "react-router-dom";
-import { MdWatchLater, MdPlaylistAdd, MdEditNote } from "react-icons/md";
+import { MdWatchLater, MdPlaylistAdd, MdOutlinePostAdd } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
 
 export default function VideoPage() {
@@ -10,6 +10,8 @@ export default function VideoPage() {
   const watchLater = JSON.parse(localStorage.getItem("watchLater"));
   const [watch, setWatch] = useState(watchLater);
   const [isAdd, setIsAdd] = useState(false);
+  const [show, setShow] = useState(false);
+
   const [notes, setNotes] = useState(
     JSON.parse(localStorage.getItem("notes")) || []
   );
@@ -17,6 +19,10 @@ export default function VideoPage() {
   const [noteText, setNoteText] = useState();
   const [loadding, setLodding] = useState(false);
   const [editNoteNo, setEditNoteNo] = useState(null);
+  const playList = JSON.parse(localStorage.getItem("playList"));
+
+  const [data, setData] = useState(playList || []);
+  const [text, setText] = useState("");
 
   const addWatchLater = () => {
     setWatch([...watch, video._id]);
@@ -33,7 +39,17 @@ export default function VideoPage() {
     setIsAdd(false);
     setNoteText("");
   };
+  const addPlayList = () => {
+    const obj = {
+      id: data.length + 1,
+      name: text,
+      video: video,
+    };
 
+    setData([...data, obj]);
+    localStorage.setItem("playList", JSON.stringify([...data, obj]));
+    setShow(false);
+  };
   const updateNotes = () => {
     setNotes((prevNotes) => {
       const updatedNotes = [...prevNotes]; // Create a copy of the 'notes' array
@@ -72,6 +88,7 @@ export default function VideoPage() {
       {loadding ? (
         <p>Loadding..........</p>
       ) : (
+        <>
         <Card className="m-3">
           <iframe
             width="802"
@@ -96,7 +113,16 @@ export default function VideoPage() {
                 />
               </button>
               <button onClick={() => setIsAdd(!isAdd)}>
-                <MdPlaylistAdd />
+                <MdOutlinePostAdd /> Add note
+              </button>
+              <button
+                onClick={() => {setShow(true);console.log("first")}}
+                // disabled={
+                //   data.find((temp) => temp?.video?._id === video?._id) !==
+                //   undefined
+                // }
+              >
+                <MdPlaylistAdd /> Add playlist
               </button>
             </Card.Title>
             <div>
@@ -142,7 +168,23 @@ export default function VideoPage() {
               </ul>
             </div>
           </Card.Body>
+      {show && (
+        <Modal show={show} onHide={() => setShow(false)}> 
+          <Modal.Header closeButton>
+            <Modal.Title>Add playlist</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <input type="text" onChange={(e) => setText(e.target.value)} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => addPlayList()}>
+              Save
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
         </Card>
+      </>
       )}
     </>
   );
